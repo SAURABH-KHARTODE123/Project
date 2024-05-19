@@ -1,0 +1,396 @@
+//This is rough code for duty 
+
+
+class HelloWorld {
+    public static void main(String[] args) {
+
+          int numberOfOfficers = 10; // Change this value based on the number of officers
+        int days = 30; // Number of days you want to schedule
+        
+        // Loop through each day
+        for (int day = 1; day <= days; day++) {
+            // Calculate the officer for the current day
+            int officerIndex = (day - 1) % numberOfOfficers;
+            String officerName = "Officer " + (officerIndex + 1);
+            
+            // Print the duty schedule for the current day
+            System.out.println("Day " + day + ": " + officerName + " on duty");
+        }
+
+    }
+}
+
+
+==========================================================
+//for duty code
+
+package com.demo.test;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+ class Duty {
+    private String officerName;
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    public Duty(String officerName, LocalDate startDate, LocalDate endDate) {
+        this.officerName = officerName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public String getOfficerName() {
+        return officerName;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+}
+
+ class Station {
+    private String stationName;
+    private List<Duty> duties = new ArrayList<>();
+
+    public Station(String stationName) {
+        this.stationName = stationName;
+    }
+
+    public void addDuty(Duty duty) {
+        duties.add(duty);
+    }
+
+    public void removeDuty(Duty duty) {
+        duties.remove(duty);
+    }
+
+    public List<Duty> getDuties() {
+        return duties;
+    }
+
+    public void printSchedule() {
+        System.out.println("Schedule for " + stationName + ":");
+        for (Duty duty : duties) {
+            System.out.println(duty.getOfficerName() + " - " + duty.getStartDate() + " to " + duty.getEndDate());
+        }
+    }
+}
+
+ class Schedule {
+    private List<Station> stations = new ArrayList<>();
+
+    public void addStation(Station station) {
+        stations.add(station);
+    }
+
+    public void removeStation(Station station) {
+        stations.remove(station);
+    }
+
+    public void printSchedule() {
+        System.out.println("Overall schedule:");
+        for (Station station : stations) {
+            station.printSchedule();
+        }
+    }
+}
+
+public class TestDuty {
+    public static void main(String[] args) {
+        Station station = new Station("Police Station 1");
+        station.addDuty(new Duty("Officer 1", LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 10)));
+        station.addDuty(new Duty("Officer 2", LocalDate.of(2021, 1, 11), LocalDate.of(2021, 1, 20)));
+        station.addDuty(new Duty("Officer 3", LocalDate.of(2021, 1, 21), LocalDate.of(2021, 1, 30)));
+        Station station2 = new Station("Police Station 2");
+        station2.addDuty(new Duty("Officer 4", LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 10)));
+        station2.addDuty(new Duty("Officer 5", LocalDate.of(2021, 1, 11), LocalDate.of(2021, 1, 20)));
+        station2.addDuty(new Duty("Officer 6", LocalDate.of(2021, 1, 21), LocalDate.of(2021, 1, 30)));
+        Schedule schedule = new Schedule();
+        schedule.addStation(station);
+        schedule.addStation(station2);
+        schedule.printSchedule();
+    }
+}
+
+
+
+Title- Policce Duty Scheduling
+platform- J2EE
+duration- 1 month
+discription- 
+
+Frontend - HTML5, CSS3, bootstrap, Javascript, ReactJs.
+Language- java language.
+Framework-  Springboot, Hibernate.
+Databse - Mysql.
+
+These days, there are many issues with assigning police duties to policemen, such as repeating duties to a single officer and not allocating duties in an organized way, even when they are scheduled. In order to solve the time-consuming and confusing manual duty assignment system, we developed a web-based system that aids police departments in keeping track of their daily duty schedule records. The system operates independently of time, place, or handset type barriers. Planning for daily activities is accessible to authorized users worldwide. 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1) classs----
+
+package com.demo.Beans;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+class Policemen {
+    private String name;
+    private List<String> schedule;
+
+    public Policemen(String name) {
+        this.name = name;
+        this.schedule = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getSchedule() {
+        return schedule;
+    }
+
+    public void addActivity(String activity) {
+        schedule.add(activity);
+    }
+
+    public void takeLeave() {
+        schedule.clear();
+        schedule.add("On Leave");
+    }
+}
+
+
+
+2) class------
+
+package com.demo.Beans;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class policeScheduler {
+
+    private static final Policemen[] Policemen = null;
+
+	public static void main(String[] args) {
+        List<Policemen> policemen = new ArrayList<>();
+        policemen.add(new Policemen("Policeman1"));
+        policemen.add(new Policemen("Policeman2"));
+        policemen.add(new Policemen("Policeman3"));
+
+        // Schedule activities
+        scheduleActivities(policemen);
+
+        // Display initial sorted schedule
+        System.out.println("Initial Sorted Schedule:");
+        displaySortedSchedule(policemen);
+
+        // Policeman2 takes leave
+        Policemen policemanOnLeave = policemen.get(1);
+        leave(policemanOnLeave);
+
+        // Display updated sorted schedule after leave
+        System.out.println("Updated Sorted Schedule after Leave:");
+        displaySortedSchedule(policemen);
+    }
+
+    private static void scheduleActivities(List<Policemen> policemen) {
+        for (Policemen policeman : policemen) {
+            policeman.addActivity("Activity1");
+            policeman.addActivity("Activity2");
+            policeman.addActivity("Activity3");
+        }
+    }
+
+    private static void leave(Policemen policeman) {
+        System.out.println("Policeman " + policeman.getName() + " is on leave.");
+        policeman.takeLeave();
+    }
+
+    private static void displaySortedSchedule(List<Policemen> policemen) {
+        // Sort the policemen based on their schedules
+        Collections.sort(policemen, Comparator.comparing(p -> String.join(",", p.getSchedule())));
+
+        for (com.demo.Beans.Policemen policeman : policemen) {
+            System.out.println("Policeman " + policeman.getName() + " Schedule: " + policeman.getSchedule());
+        }
+        System.out.println();
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Jdbc Scheduling------
+
+
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+class Policeman {
+    private String name;
+    private List<String> schedule;
+
+    public Policeman(String name) {
+        this.name = name;
+        this.schedule = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getSchedule() {
+        return schedule;
+    }
+
+    public void addActivity(String activity) {
+        schedule.add(activity);
+    }
+
+    public void takeLeave() {
+        schedule.clear();
+        schedule.add("On Leave");
+    }
+}
+
+public class PoliceSchedulerJDBC {
+
+    private static final String JDBC_URL = "jdbc:sqlite:schedule.db";
+
+    public static void main(String[] args) {
+        initializeDatabase();
+
+        List<Policeman> policemen = new ArrayList<>();
+        policemen.add(new Policeman("Policeman1"));
+        policemen.add(new Policeman("Policeman2"));
+        policemen.add(new Policeman("Policeman3"));
+
+        // Schedule activities
+        scheduleActivities(policemen);
+
+        // Display initial sorted schedule
+        System.out.println("Initial Sorted Schedule:");
+        displaySortedSchedule(policemen);
+
+        // Policeman2 takes leave
+        Policeman policemanOnLeave = policemen.get(1);
+        leave(policemanOnLeave);
+
+        // Display updated sorted schedule after leave
+        System.out.println("Updated Sorted Schedule after Leave:");
+        displaySortedSchedule(policemen);
+    }
+
+    private static void initializeDatabase() {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL);
+             Statement statement = connection.createStatement()) {
+
+            // Create a table if not exists
+            String createTableSQL = "CREATE TABLE IF NOT EXISTS schedule (name TEXT, activity TEXT)";
+            statement.executeUpdate(createTableSQL);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void scheduleActivities(List<Policeman> policemen) {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL);
+             Statement statement = connection.createStatement()) {
+
+            // Insert activities into the database
+            for (Policeman policeman : policemen) {
+                for (String activity : List.of("Activity1", "Activity2", "Activity3")) {
+                    statement.executeUpdate("INSERT INTO schedule (name, activity) VALUES ('" +
+                            policeman.getName() + "', '" + activity + "')");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void leave(Policeman policeman) {
+        System.out.println("Policeman " + policeman.getName() + " is on leave.");
+        policeman.takeLeave();
+
+        // Update the database to mark the policeman on leave
+        try (Connection connection = DriverManager.getConnection(JDBC_URL);
+             Statement statement = connection.createStatement()) {
+
+            statement.executeUpdate("DELETE FROM schedule WHERE name = '" + policeman.getName() + "'");
+            statement.executeUpdate("INSERT INTO schedule (name, activity) VALUES ('" +
+                    policeman.getName() + "', 'On Leave')");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void displaySortedSchedule(List<Policeman> policemen) {
+        // Retrieve schedule from the database and sort it
+        List<Policeman> updatedPolicemen = retrieveScheduleFromDatabase();
+
+        // Sort the policemen based on their schedules
+        Collections.sort(updatedPolicemen, Comparator.comparing(p -> String.join(",", p.getSchedule())));
+
+        for (Policeman policeman : updatedPolicemen) {
+            System.out.println("Policeman " + policeman.getName() + " Schedule: " + String.join(", ", policeman.getSchedule()));
+        }
+        System.out.println();
+    }
+
+    private static List<Policeman> retrieveScheduleFromDatabase() {
+        List<Policeman> policemen = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(JDBC_URL);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM schedule")) {
+
+            Policeman currentPoliceman = null;
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("name");
+                String activity = resultSet.getString("activity");
+
+                if (currentPoliceman == null || !currentPoliceman.getName().equals(name)) {
+                    currentPoliceman = new Policeman(name);
+                    policemen.add(currentPoliceman);
+                }
+
+                currentPoliceman.addActivity(activity);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return policemen;
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   photos----> 1)  Batch------> 
+       Our real heros is the real identity of our society . Maharashtra police is not just a name its a dedicated, tallented, bravery group
+of police officers who not only protect us but maintain our daily life on track...our project is a small contribution to help them for scheduling their duty
+in a easy way so that they will focous on major cases. Maharashtra police is a jersy of pride and emotions for all people for their work and dedication salute to 
+police officers!
+
+2) group with smiling face---->
+  Smiling face on police officers is the satisfied emotions to our society cause they smile when their assigned duty is accomplish. they are the key root of our 
+   society ...proud to our heros.
+3) quote---->  this slogan refered from Bhagvatgeeta and its meaning is "Maharashtra police protect guiltless and to distroy 
+harmful people by controlling them."
